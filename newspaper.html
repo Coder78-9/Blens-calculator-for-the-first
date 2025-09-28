@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blen's Newspaper</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: #f0f0f0;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      button {
+        margin: 5px;
+        padding: 8px 12px;
+        cursor: pointer;
+      }
+
+      #articles div {
+        background-color: #fff;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        box-shadow: 1px 1px 4px #aaa;
+      }
+
+      #comments {
+        margin-top: 20px;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 1px 1px 4px #aaa;
+      }
+
+      #postedComments div {
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+        padding: 4px;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+      }
+
+      #postedComments button {
+        margin-left: 10px;
+        padding: 2px 6px;
+      }
+
+      #commentInput {
+        width: 70%;
+        padding: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Blen's Newspaper</h1>
+
+    <!-- Buttons -->
+    <button onclick="showArticle(0)">Math</button>
+    <button onclick="showArticle(1)">Reading</button>
+    <button onclick="showArticle(2)">Science</button>
+    <button onclick="showArticle(3)">History</button>
+
+    <!-- Articles -->
+    <div id="articles">
+      <div id="article0" style="display:none">
+        <h2>Coding and Math Related?</h2>
+        <p>Never knew!</p>
+      </div>
+      <div id="article1" style="display:none">
+        <h2>New Diary of a Wimpy Kid!</h2>
+        <p>Wow</p>
+      </div>
+      <div id="article2" style="display:none">
+        <h2>Life On Mars?</h2>
+        <p>Amazing</p>
+      </div>
+      <div id="article3" style="display:none">
+        <h2>Nothing yet..</h2>
+        <p>Cool</p>
+      </div>
+    </div>
+
+    <!-- Comments -->
+    <div id="comments">
+      <h3>Comments</h3>
+      <div id="postedComments"></div>
+      <input id="commentInput" placeholder="Write a comment...">
+      <button onclick="postComment()">Post</button>
+    </div>
+
+    <script>
+      // Switching articles
+      function showArticle(index) {
+        for (var i = 0; i < 4; i++) {
+          document.getElementById("article" + i).style.display = "none";
+        }
+        document.getElementById("article" + index).style.display = "block";
+      }
+
+      // Posting comments
+      function postComment() {
+        var commentInput = document.getElementById("commentInput");
+        var commentText = commentInput.value.trim();
+        if(commentText === "") return; // don't post empty comments
+
+        var newComment = document.createElement("div");
+        var text = document.createElement("span");
+        text.textContent = commentText;
+
+        var deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.onclick = function() {
+          newComment.remove();
+        };
+
+        newComment.appendChild(text);
+        newComment.appendChild(deleteBtn);
+        document.getElementById("postedComments").appendChild(newComment);
+
+        commentInput.value = ""; // clear input
+      }
+    </script>
+  </body>
+</html>
