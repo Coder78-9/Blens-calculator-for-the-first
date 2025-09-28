@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Blen's Calculator 📱</title>
+  </head>
+  <body>
+    <h1>Blen's Calculator 📱</h1>
+    <input id="display" readonly><br>
+
+    <!-- Numbers -->
+    <button>0</button>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>4</button>
+    <button>5</button><br>
+    <button>6</button>
+    <button>7</button>
+    <button>8</button>
+    <button>9</button><br>
+
+    <!-- Operators -->
+    <button>+</button>
+    <button>-</button>
+    <button>x</button>
+    <button>÷</button><br>
+
+    <!-- Controls -->
+    <button>=</button>
+    <button>C</button>
+
+    <script>
+      var buttons = document.querySelectorAll("button");
+      var input = document.getElementById("display");
+
+      function handleButtonClick(event) {
+        var buttonText = event.target.textContent;
+
+        if (buttonText === "C") {
+          input.value = "";
+        } else if (buttonText === "=") {
+          var expression = input.value
+            .replace(/x/g, "*")
+            .replace(/÷/g, "/");
+
+          try {
+            // use Function instead of eval for Khan Academy
+            input.value = new Function("return " + expression)();
+          } catch (e) {
+            input.value = "Error";
+          }
+        } else {
+          input.value += buttonText;
+        }
+      }
+
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", handleButtonClick);
+      }
+    </script>
+  </body>
+</html>
